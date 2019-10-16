@@ -83,7 +83,7 @@ class UpdateTokimon extends Component {
     const { errors } = this.state;
     return (
       <React.Fragment>
-        <h1 className="addTokimon">Add Tokimon</h1>
+        <h1 className="addTokimon">{`Update ${tokimon}`}</h1>
         <div className="tokimonFormDiv">
           <form onSubmit={this.handleSubmit}>
             <Input

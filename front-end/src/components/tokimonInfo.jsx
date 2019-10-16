@@ -20,8 +20,9 @@ class TokimonInfo extends Component {
             <tr>
               <th>Trainer</th>
               <th>Weight</th>
-              <th>height</th> 
+              <th>Height</th> 
               <th>Fly</th>
+              <th>Fight</th>
               <th>Fire</th>
               <th>Water</th>
               <th>Electric</th>
@@ -35,6 +36,7 @@ class TokimonInfo extends Component {
                 <td>{this.state.tokimon.weight}</td>
                 <td>{this.state.tokimon.height}</td>
                 <td>{this.state.tokimon.fly}</td>
+                <td>{this.state.tokimon.fight}</td>
                 <td>{this.state.tokimon.fire}</td>
                 <td>{this.state.tokimon.water}</td>
                 <td>{this.state.tokimon.electric}</td>
