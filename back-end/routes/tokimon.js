@@ -53,8 +53,8 @@ router.delete('/:id', validObjectId, (req, res) => {
 });
 
 router.put('/:id', validObjectId, (req, res) => {
-  const {name, weight, height, fly, fight, fire, water, electric, frozen, total, trainer} = (req.body);
-
+  const {name, weight, height, fly, fight, fire, water, electric, frozen, trainer} = (req.body);
+  const total = parseInt(fly) + parseInt(fight) + parseInt(fire) + parseInt(water) + parseInt(electric) + parseInt(frozen);
   pool.query(`UPDATE Tokimon SET 
     name = $1, weight = $2, height = $3, fly = $4, fight = $5, fire = $6, water = $7, electric = $8, frozen = $9, total = $10, trainer = $11
     WHERE id = ${req.params.id}

@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.tokimonFormDiv {
+  width: 300px;
+  margin-left: 40%;
+}
+
+.submitButton {
+  width: 300px;
+  margin-bottom: 200px;
+  margin-top: 20;
+}
+
+.addTokimon {
+  padding-left: 40%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  background-color: #F0F0F0;
+}
+
+td, th, tr{
+  text-align: center;
+}
