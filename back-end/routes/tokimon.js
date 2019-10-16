@@ -4,14 +4,6 @@ const validObjectId = require('../middleware/validObjectId');
 const router = express.Router();
 const { Client } = require('pg');
 
-// const client = new pg.Pool ({
-//   user: 'tokimon',
-//   password: 'tokimon',
-//   database: 'tokimondb',
-//   host: 'localhost',
-//   port: 5432, 
-// });
-
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
   ss1: true
