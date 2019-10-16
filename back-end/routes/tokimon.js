@@ -2,19 +2,26 @@ const pg = require('pg');
 const express = require('express');
 const validObjectId = require('../middleware/validObjectId');
 const router = express.Router();
+const { Client } = require('pg');
 
-const pool = new pg.Pool ({
-  user: 'tokimon',
-  password: 'tokimon',
-  database: 'tokimondb',
-  host: 'localhost',
-  port: 5432, 
+// const client = new pg.Pool ({
+//   user: 'tokimon',
+//   password: 'tokimon',
+//   database: 'tokimondb',
+//   host: 'localhost',
+//   port: 5432, 
+// });
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ss1: true
 });
 
+client.connect();
 
 router.get('/', (req, res) => {
   const getAllTokimonQuery = `SELECT * FROM Tokimon ORDER BY id ASC`;
-  pool.query(getAllTokimonQuery, (error, result) => {
+  client.query(getAllTokimonQuery, (error, result) => {
     if (error) throw error;
     res.status(200).send(result.rows);
   });
@@ -23,7 +30,7 @@ router.get('/', (req, res) => {
 router.get('/:id', validObjectId, (req, res) => {
   const getTokimonByIdQuery = `SELECT * FROM Tokimon WHERE id = ${req.params.id}`;
   
-  pool.query(getTokimonByIdQuery, (error, result) => {
+  client.query(getTokimonByIdQuery, (error, result) => {
     if (error) throw error;
     res.status(200).send(result.rows)
   });
@@ -37,7 +44,7 @@ router.post('/', (req, res) => {
     VALUES ($1, $2, $3 , $4, $5, $6, $7, $8, $9, $10, $11)
   `;
 
-  pool.query(postTokimonQuery, [name, weight, height, fly, fight, fire, water, electric, frozen, total, trainer ],(error, result) => {
+  client.query(postTokimonQuery, [name, weight, height, fly, fight, fire, water, electric, frozen, total, trainer ],(error, result) => {
     if (error) throw error;
     res.status(201).send('Tokimon Added');
   });
@@ -46,7 +53,7 @@ router.post('/', (req, res) => {
 router.delete('/:id', validObjectId, (req, res) => {
   const deleteTokimonQuery = `DELETE FROM Tokimon WHERE id = ${req.params.id}`;
   
-  pool.query(deleteTokimonQuery, (error, result) => {
+  client.query(deleteTokimonQuery, (error, result) => {
     if (error) throw error;
     res.status(200).send(`Deleted Tokimon with id ${req.params.id}`)
   });
@@ -55,7 +62,7 @@ router.delete('/:id', validObjectId, (req, res) => {
 router.put('/:id', validObjectId, (req, res) => {
   const {name, weight, height, fly, fight, fire, water, electric, frozen, trainer} = (req.body);
   const total = parseInt(fly) + parseInt(fight) + parseInt(fire) + parseInt(water) + parseInt(electric) + parseInt(frozen);
-  pool.query(`UPDATE Tokimon SET 
+  client.query(`UPDATE Tokimon SET 
     name = $1, weight = $2, height = $3, fly = $4, fight = $5, fire = $6, water = $7, electric = $8, frozen = $9, total = $10, trainer = $11
     WHERE id = ${req.params.id}
     `,

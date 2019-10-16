@@ -5,11 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon index.js",
+    "start": "node index.js",
+    "server": "node index.js",
+    "client": "npm start --prefix ../front-end",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "10.16.2"
   },
   "author": "Taranpreet Natt",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^4.1.1",
     "express": "^4.17.1",
     "nodemon": "^1.19.3",
     "pg": "^7.12.1"
